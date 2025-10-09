@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from '@/components/header';
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Toaster } from "sonner";
 
 const inter=Inter({subsets:['Latin']});
 export const metadata = {
@@ -14,9 +15,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider appearance={{
-      baseTheme:dark
+      baseTheme:dark,
     }}>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <link rel="icon" href ="/logo.png" sizes="any" />
+        </head>
         <body
           className={`${inter.className} `}
         >
@@ -29,10 +33,12 @@ export default function RootLayout({ children }) {
               {/*header*/}
               <Header/>
               <main className="min-h-screen">{children}</main>
+              <Toaster richcolors />
+
               {/*footer*/}
               <footer className="bg-muted/50 py-12">
                 <div className="container mx-auto px-4 text-center text-gray-200">
-                  <p>Made with love by RoadsideCoder</p>
+                  <p>Made with love by Boris</p>
                 </div>
               </footer>          
           </ThemeProvider>
