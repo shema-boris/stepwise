@@ -4,7 +4,7 @@ import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+let model;
 
 export const generateAIInsights = async (industry) => {
   const prompt = `
@@ -27,7 +27,37 @@ export const generateAIInsights = async (industry) => {
           Include at least 5 skills and trends.
         `;
 
-  const result = await model.generateContent(prompt);
+  try {
+    model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  } catch (err) {
+    console.error("Error getting generative model:", err);
+    try {
+      if (typeof genAI.listModels === "function") {
+        const available = await genAI.listModels();
+        console.log("Available models:", available);
+      }
+    } catch (listErr) {
+      console.error("Error listing models:", listErr);
+    }
+    throw err;
+  }
+
+  let result;
+  try {
+    result = await model.generateContent(prompt);
+  } catch (err) {
+    console.error("Error calling generateContent:", err);
+    try {
+      if (typeof genAI.listModels === "function") {
+        const available = await genAI.listModels();
+        console.log("Available models:", available);
+      }
+    } catch (listErr) {
+      console.error("Error listing models:", listErr);
+    }
+    throw err;
+  }
+
   const response = result.response;
   const text = response.text();
   const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();

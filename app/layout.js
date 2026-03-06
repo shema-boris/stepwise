@@ -1,49 +1,44 @@
-import { Inter } from "next/font/google";
+import { Inter} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import Header from '@/components/header';
+import Header from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import { Toaster } from "sonner";
 
-const inter=Inter({subsets:['Latin']});
+const inter = Inter({ subsets: ["latin"]});
+
+
 export const metadata = {
-  title: "StepWise -AI Career Coach",
+  title: "StepWise-AI Career Coach",
   description: "",
-};
+ };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({children}){
   return (
     <ClerkProvider appearance={{
-      baseTheme:dark,
+      baseTheme: dark
     }}>
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <link rel="icon" href ="/logo.png" sizes="any" />
-        </head>
-        <body
-          className={`${inter.className} `}
-        >
+      <html lang='en' suppressHydrationWarning>
+        <body className={`${inter.className}`}>
+        
           <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-            > 
-              {/*header*/}
-              <Header/>
-              <main className="min-h-screen">{children}</main>
-              <Toaster richcolors />
-
-              {/*footer*/}
-              <footer className="bg-muted/50 py-12">
-                <div className="container mx-auto px-4 text-center text-gray-200">
-                  <p>Made with love by Boris</p>
-                </div>
-              </footer>          
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {/*header*/}
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            {/*footer */}
+            <footer className="bg-muted/50 py-12">
+              <div className="container mx-auto px-4  text-center text-gray-200">
+                <p>Made with love by Boris</p>
+              </div>
+            </footer>
           </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
   );
-}
+ }
