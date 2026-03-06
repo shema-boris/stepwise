@@ -68,13 +68,13 @@ StepWise is an intelligent career coaching platform that leverages Google's Gemi
 ## 📱 User Interface
 
 ### Landing Page
-![Landing Page](/stepwise1.PNG)
+![Landing Page](public/stepwise1.PNG)
 
 ### Dashboard Interface
-![Dashboard](/stepwise2.PNG)
+![Dashboard](public/stepwise2.PNG)
 
 ### Career Insights
-![Industry Insights](/stepwise3.PNG)
+![Industry Insights](public/stepwise3.PNG)
 
 ## 🚀 Getting Started
 
